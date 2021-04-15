@@ -1,5 +1,5 @@
-﻿using masood_lab.DBmanager;
-using masood_lab.Models;
+﻿using masood_lab.Models;
+using masood_lab.Patterns;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,12 +19,12 @@ namespace masood_lab.Controllers
         //start
 
         LibrarianModel Librarian = new LibrarianModel();
-        Librarian_Manager obj = new Librarian_Manager();
+        DBsingleton singleton = DBsingleton.getobject();
 
         [HttpGet]
         public ActionResult AddLibrarian()
         {
-            obj.getnextid(Librarian);
+            singleton.getnextid(Librarian);
             return View(Librarian);
         }
 
@@ -37,7 +37,7 @@ namespace masood_lab.Controllers
                 if (ImageFile != null)
                 {
                     ImageSaver(Librarian, ImageFile);
-                    bool chk = obj.AddLibrarian(Librarian);
+                    bool chk = singleton.AddLibrarian(Librarian);
 
                     if (chk)
                     {
@@ -71,7 +71,7 @@ namespace masood_lab.Controllers
         public ActionResult ViewLibrarian()
         {
 
-            List<LibrarianModel> Librarian = obj.ViewLibrarian();
+            List<LibrarianModel> Librarian = singleton.ViewLibrarian();
             ViewBag.Message = TempData["Message"];
             ViewBag.Error = TempData["error"];
             return View(Librarian);
@@ -81,7 +81,7 @@ namespace masood_lab.Controllers
         [HttpGet]
         public ActionResult UpdateLibrarian(int FID)
         {
-            LibrarianModel Librarian = obj.GetOneLibrarian(FID);
+            LibrarianModel Librarian = singleton.GetOneLibrarian(FID);
             TempData["picture"] = Librarian.ImagePath;
             return View(Librarian);
         }
@@ -93,7 +93,7 @@ namespace masood_lab.Controllers
             if (ImageFile != null)
             {
                 ImageSaver(Librarian, ImageFile);
-                bool check = obj.UpdateLibrarian(Librarian);
+                bool check = singleton.UpdateLibrarian(Librarian);
                 if (check)
                 {
                     TempData["Message"] = "Librarian Updated!";
@@ -109,7 +109,7 @@ namespace masood_lab.Controllers
             else if (Librarian.ImagePath != null)
             {
 
-                bool check = obj.UpdateLibrarian(Librarian);
+                bool check = singleton.UpdateLibrarian(Librarian);
                 if (check)
                 {
                     TempData["Message"] = "Librarian Updated!";
@@ -133,7 +133,7 @@ namespace masood_lab.Controllers
 
         public ActionResult DeleteLibrarian(int FID)
         {
-            bool check = obj.DeleteLibrarian(FID);
+            bool check = singleton.DeleteLibrarian(FID);
             if (check)
             {
                 TempData["Message"] = "Librarian Deleted!";

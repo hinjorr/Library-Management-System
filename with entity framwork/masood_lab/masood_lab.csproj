@@ -393,6 +393,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\AbstractBooksController.cs" />
     <Compile Include="Patterns\AbstractFactory.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
@@ -402,13 +403,6 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Controllers\RegisterBookController.cs" />
-    <Compile Include="DBmanager\Admin_Manager.cs" />
-    <Compile Include="DBmanager\Books_Managers.cs" />
-    <Compile Include="DBmanager\General.cs" />
-    <Compile Include="DBmanager\Librarian_Manager.cs" />
-    <Compile Include="DBmanager\Login_Manager.cs" />
-    <Compile Include="DBmanager\Member_Manger.cs" />
-    <Compile Include="DBmanager\Registration_Manager.cs" />
     <Compile Include="Filters\AuthorizedUser.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -484,6 +478,7 @@
     <Content Include="Views\Librarian\ViewLibrarian.cshtml" />
     <Content Include="Views\Admin\AddAdmin.cshtml" />
     <Content Include="Views\Member\ViewMember.cshtml" />
+    <Content Include="Views\AbstractBooks\AddBook.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -4,23 +4,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using masood_lab.DBmanager;
 using System.IO;
+using masood_lab.Patterns;
+
 namespace masood_lab.Controllers
 {
     //[masood_lab.Filters.AuthorizedUser]
     public class MemberController : Controller
     {
-       
-         //GET: Student
-        Member_Manger obj = new Member_Manger();
+
+        //GET: Student
+        DBsingleton singleton = DBsingleton.getobject();
         MemberModel member = new MemberModel();
-        Library_systemEntities1 lib = new Library_systemEntities1();
 
         [HttpGet]
         public ActionResult AddMember()
         {
-           MemberModel members= obj.getnextid();
+           MemberModel members= singleton.getnextid();
             return View(members);
         }
     
@@ -33,7 +33,7 @@ namespace masood_lab.Controllers
                     if (ImageFile != null)
                     {
                        ImageSaver(member,ImageFile);
-                       bool chk = obj.AddMember(member);
+                       bool chk = singleton.AddMember(member);
                        
                        if (chk)
                        {
@@ -64,7 +64,7 @@ namespace masood_lab.Controllers
 
         public ActionResult ViewMember()
         {
-            IList<MemberModel> members = obj.Viewmember();
+            IList<MemberModel> members = singleton.Viewmember();
             ViewBag.Message = TempData["Message"];
             ViewBag.Error = TempData["error"];
             return View(members);
@@ -74,7 +74,7 @@ namespace masood_lab.Controllers
         [HttpGet]
         public ActionResult UpdateMember(int FID)
         {
-            MemberModel member = obj.GetOneMember(FID);
+            MemberModel member = singleton.GetOneMember(FID);
             TempData["imagenull"] = member.ImagePath;
             return View(member);
         }
@@ -86,7 +86,7 @@ namespace masood_lab.Controllers
                 if (ImageFile != null )
                 {
                     ImageSaver(member, ImageFile);
-                    bool check = obj.UpdateMember(member);
+                    bool check = singleton.UpdateMember(member);
                     if (check)
                     {
                         TempData["Message"] = "Member Updated!";
@@ -102,7 +102,7 @@ namespace masood_lab.Controllers
 
                 else if (member.ImagePath != null)
                 {
-                    bool check = obj.UpdateMember(member);
+                    bool check = singleton.UpdateMember(member);
                     if (check)
                     {
                         TempData["Message"] = "Member Updated!";
@@ -127,7 +127,7 @@ namespace masood_lab.Controllers
 
        public ActionResult DeleteMember(int FID)
        {
-           bool check = obj.DeleteMember(FID);
+           bool check = singleton.DeleteMember(FID);
            if (check)
            {
                TempData["Message"] = "Member Deleted!";

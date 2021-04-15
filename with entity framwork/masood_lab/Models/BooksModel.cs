@@ -29,19 +29,19 @@ namespace masood_lab.Models
         public string ImagePath { get; set; }
 
 
-        public static IList<SelectListItem> bookscategory()
-        {
-            Library_systemEntities1 lib = new Library_systemEntities1();
-            IList<SelectListItem> data = (from q in lib.tblBooksCategories
-                                          select new SelectListItem
-                                          {
-                                              Text = q.CategoryName,
-                                              Value = q.ID.ToString(),
-                                              Selected = false
-                                          }).ToList();
-            return data;
-        }
-      
+        public string AbstractBookname { get; set; }
+
+        public string Abstractbooktype { get; set; }
+        public string Abstractdepartment { get; set; }
+
+        public string Abstractpublisher { get; set; }
+
+
+
+
+
+
+
 
 
 

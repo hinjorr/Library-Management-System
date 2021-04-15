@@ -2,130 +2,108 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
+using masood_lab.Models;
 namespace masood_lab.AbstractFactory
 {
     
-
+    //abstractfactory
     public interface IAbstractFactory
     {
-        ITextBooks CreateTextBooks();
+        ITextBooks GetTextBooks();
 
-        IRefrenceBooks CreateRefrenceBooks();
+        IRefrenceBooks GetRefrenceBooks();
     }
 
-    
+    //factory1
     class EngineeringFactory : IAbstractFactory
     {
-        public ITextBooks CreateTextBooks()
+        public ITextBooks GetTextBooks()
         {
             return new EngineeringTextBooks();
         }
 
-        public IRefrenceBooks CreateRefrenceBooks()
+        public IRefrenceBooks GetRefrenceBooks()
         {
             return new EngineeringREfrenceBooks();
         }
     }
 
+    //factory2
     class CSFactory : IAbstractFactory
     {
-        public ITextBooks CreateTextBooks()
+        public ITextBooks GetTextBooks()
         {
             return new CSTextBooks();
         }
 
-        public IRefrenceBooks CreateRefrenceBooks()
+        public IRefrenceBooks GetRefrenceBooks()
         {
             return new CSRefrenceBooks();
         }
     }
 
     
+    
+    
+    //productA
     public interface ITextBooks
     {
-        string UsefulFunctionA();
+        void GetTextbook();
     }
 
+    //prodcuctA1
     class EngineeringTextBooks : ITextBooks
     {
-        public string UsefulFunctionA()
+        public void GetTextbook()
         {
-            return "The result of the product A1.";
+            
         }
     }
 
+    //prodcuctA2
     class CSTextBooks : ITextBooks
     {
-        public string UsefulFunctionA()
+        public void GetTextbook()
         {
-            return "The result of the product A2.";
         }
     }
 
-    
+
+    //productB
     public interface IRefrenceBooks
     {
-        string UsefulFunctionB();
-
+        void GetRefrenceBook();
+        
        
-        string AnotherUsefulFunctionB(ITextBooks collaborator);
     }
 
+    //productB1
     class EngineeringREfrenceBooks : IRefrenceBooks
     {
-        public string UsefulFunctionB()
+        
+
+
+        public void GetRefrenceBook()
         {
-            return "The result of the product B1.";
+           
         }
 
       
-        public string AnotherUsefulFunctionB(ITextBooks collaborator)
-        {
-            var result = collaborator.UsefulFunctionA();
-
-            return $"The result of the B1 collaborating with the ({result})";
-        }
+        
     }
 
+
+    //productB2
     class CSRefrenceBooks : IRefrenceBooks
     {
-        public string UsefulFunctionB()
+        public void GetRefrenceBook()
         {
-            return "The result of the product B2.";
-        }
-
-       
-        public string AnotherUsefulFunctionB(ITextBooks collaborator)
-        {
-            var result = collaborator.UsefulFunctionA();
-
-            return $"The result of the B2 collaborating with the ({result})";
+            throw new NotImplementedException();
         }
     }
 
-    class Client
-    {
-        public void Main()
-        {
-            // The client code can work with any concrete factory class.
-            Console.WriteLine("Client: Testing client code with the first factory type...");
-            ClientMethod(new EngineeringFactory());
-            Console.WriteLine();
 
-            Console.WriteLine("Client: Testing the same client code with the second factory type...");
-            ClientMethod(new CSFactory());
-        }
-
-        public void ClientMethod(IAbstractFactory factory)
-        {
-            var productA = factory.CreateTextBooks();
-            var productB = factory.CreateRefrenceBooks();
-
-            Console.WriteLine(productB.UsefulFunctionB());
-            Console.WriteLine(productB.AnotherUsefulFunctionB(productA));
-        }
-    }
+    
 
 
 }

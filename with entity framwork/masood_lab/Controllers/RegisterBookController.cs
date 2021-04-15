@@ -1,5 +1,5 @@
-﻿using masood_lab.DBmanager;
-using masood_lab.Models;
+﻿using masood_lab.Models;
+using masood_lab.Patterns;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +14,7 @@ namespace masood_lab.Controllers
     {
         // GET: RegisterBook
 
-        Registration_Manager obj = new Registration_Manager();
+        DBsingleton singleton = DBsingleton.getobject();
         RegistrationModel model = new RegistrationModel();
 
         public RegisterBookController()
@@ -26,7 +26,7 @@ namespace masood_lab.Controllers
         [HttpGet]
         public ActionResult Register()
         {
-            obj.getid(model);
+            singleton.getid(model);
             return View(model);
         }
 
@@ -35,7 +35,7 @@ namespace masood_lab.Controllers
         {    
             if (ModelState.IsValid )
             {
-                obj.RegisterBook(model);
+                singleton.RegisterBook(model);
                 if (model !=null)
                 {
                     TempData["Message"] = "Book Registered!";
@@ -51,20 +51,20 @@ namespace masood_lab.Controllers
         }
         public ActionResult ViewRegister()
         {
-           List<RegistrationModel> register= obj.viewregistration();
+           List<RegistrationModel> register= singleton.viewregistration();
             ViewBag.Message = TempData["Message"];
             return View(register);
         }
         [HttpGet]
         public ActionResult Update(int fid)
         {
-           RegistrationModel regiter= obj.getonedata(fid);
+           RegistrationModel regiter= singleton.getonedata(fid);
            return View(regiter);
         }
         [HttpPost]
         public ActionResult Update(RegistrationModel model)
         {
-            bool chk = obj.update(model);
+            bool chk = singleton.update(model);
             if (chk)
             {
                 TempData["Message"] = "Data updated!";
@@ -80,7 +80,7 @@ namespace masood_lab.Controllers
 
         public ActionResult Delete(int fid)
         {
-            bool chk = obj.delete(fid);
+            bool chk = singleton.delete(fid);
             if (chk)
             {
                 TempData["Message"] = "Data deleted!";

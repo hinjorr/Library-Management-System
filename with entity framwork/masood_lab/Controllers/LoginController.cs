@@ -1,5 +1,5 @@
-﻿using masood_lab.DBmanager;
-using masood_lab.Models;
+﻿using masood_lab.Models;
+using masood_lab.Patterns;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,7 @@ namespace masood_lab.Controllers
     public class LoginController : Controller
     {
         // GET: Login
-        Login_Manager obj = new Login_Manager();
+        DBsingleton singleton = DBsingleton.getobject();
 
 
         [HttpGet]
@@ -22,7 +22,7 @@ namespace masood_lab.Controllers
         [HttpPost]
         public ActionResult Login(LoginModel login)
         {
-            bool chk = obj.LoginFunc(login);
+            bool chk = singleton.LoginFunc(login);
             if (chk)
             {
                 if (login.identification == "member")

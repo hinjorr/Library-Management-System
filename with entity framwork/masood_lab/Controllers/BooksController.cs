@@ -1,5 +1,4 @@
-﻿using masood_lab.DBmanager;
-using masood_lab.Models;
+﻿using masood_lab.Models;
 using masood_lab.Patterns;
 using System;
 using System.Collections.Generic;
@@ -14,14 +13,14 @@ namespace masood_lab.Controllers
     public class BooksController : Controller
     {
         // GET: Books
-        BooksDBsingleton singleton = BooksDBsingleton.getobject();
+        DBsingleton singleton = DBsingleton.getobject();
 
         //Books_Managers obj = new Books_Managers();
         BooksModel books = new BooksModel();
 
          public BooksController()
         {
-            ViewBag.BooksCategory = BooksModel.bookscategory();
+            ViewBag.BooksCategory = DBsingleton.bookscategory();
         }    
 
         [HttpGet]

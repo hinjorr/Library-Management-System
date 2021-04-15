@@ -5,6 +5,16 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Library_systemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="tbl_admin">
           <Key>
             <PropertyRef Name="admin_id" />
@@ -14,6 +24,46 @@
           <Property Name="admin_username" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ImagePath" Type="varchar(max)" Nullable="false" />
           <Property Name="admin_Name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_csRefrencebook">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="type" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="type" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="publisher" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbl_cstxtbook">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="type" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="type" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="publsiher" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbl_engRefrencebook">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="type" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="type" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="publisher" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbl_engtxtbook">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="type" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="type" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="publisher" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="tbl_librarian">
           <Key>
@@ -170,7 +220,12 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Library_systemModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_admin" EntityType="Self.tbl_admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_csRefrencebook" EntityType="Self.tbl_csRefrencebook" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_cstxtbook" EntityType="Self.tbl_cstxtbook" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_engRefrencebook" EntityType="Self.tbl_engRefrencebook" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_engtxtbook" EntityType="Self.tbl_engtxtbook" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_librarian" EntityType="Self.tbl_librarian" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblBooksCategory" EntityType="Self.tblBooksCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblBooksMembers" EntityType="Self.tblBooksMembers" Schema="dbo" store:Type="Tables" />
@@ -207,7 +262,12 @@
     <edmx:ConceptualModels>
       <Schema Namespace="Library_systemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="Library_systemEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Library_systemModel.sysdiagram" />
           <EntitySet Name="tbl_admin" EntityType="Library_systemModel.tbl_admin" />
+          <EntitySet Name="tbl_csRefrencebook" EntityType="Library_systemModel.tbl_csRefrencebook" />
+          <EntitySet Name="tbl_cstxtbook" EntityType="Library_systemModel.tbl_cstxtbook" />
+          <EntitySet Name="tbl_engRefrencebook" EntityType="Library_systemModel.tbl_engRefrencebook" />
+          <EntitySet Name="tbl_engtxtbook" EntityType="Library_systemModel.tbl_engtxtbook" />
           <EntitySet Name="tbl_librarian" EntityType="Library_systemModel.tbl_librarian" />
           <EntitySet Name="tblBooksCategories" EntityType="Library_systemModel.tblBooksCategory" />
           <EntitySet Name="tblBooksMembers" EntityType="Library_systemModel.tblBooksMember" />
@@ -239,6 +299,16 @@
             <End Role="tblLogin" EntitySet="tblLogins" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
         <EntityType Name="tbl_admin">
           <Key>
             <PropertyRef Name="admin_id" />
@@ -249,6 +319,46 @@
           <Property Name="ImagePath" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="admin_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tblLogins" Relationship="Library_systemModel.FK_tblLogin_tbl_admin" FromRole="tbl_admin" ToRole="tblLogin" />
+        </EntityType>
+        <EntityType Name="tbl_csRefrencebook">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="type" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="publisher" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tbl_cstxtbook">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="type" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="publsiher" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tbl_engRefrencebook">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="type" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="publisher" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tbl_engtxtbook">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="type" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="publisher" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tbl_librarian">
           <Key>
@@ -415,12 +525,23 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="Library_systemModelStoreContainer" CdmEntityContainer="Library_systemEntities1">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Library_systemModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tbl_admin">
             <EntityTypeMapping TypeName="Library_systemModel.tbl_admin">
               <MappingFragment StoreEntitySet="tbl_admin">
@@ -429,6 +550,46 @@
                 <ScalarProperty Name="admin_username" ColumnName="admin_username" />
                 <ScalarProperty Name="admin_password" ColumnName="admin_password" />
                 <ScalarProperty Name="admin_id" ColumnName="admin_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_csRefrencebook">
+            <EntityTypeMapping TypeName="Library_systemModel.tbl_csRefrencebook">
+              <MappingFragment StoreEntitySet="tbl_csRefrencebook">
+                <ScalarProperty Name="publisher" ColumnName="publisher" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_cstxtbook">
+            <EntityTypeMapping TypeName="Library_systemModel.tbl_cstxtbook">
+              <MappingFragment StoreEntitySet="tbl_cstxtbook">
+                <ScalarProperty Name="publsiher" ColumnName="publsiher" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_engRefrencebook">
+            <EntityTypeMapping TypeName="Library_systemModel.tbl_engRefrencebook">
+              <MappingFragment StoreEntitySet="tbl_engRefrencebook">
+                <ScalarProperty Name="publisher" ColumnName="publisher" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_engtxtbook">
+            <EntityTypeMapping TypeName="Library_systemModel.tbl_engtxtbook">
+              <MappingFragment StoreEntitySet="tbl_engtxtbook">
+                <ScalarProperty Name="publisher" ColumnName="publisher" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

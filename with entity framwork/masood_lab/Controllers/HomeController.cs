@@ -1,5 +1,4 @@
-﻿using masood_lab.DBmanager;
-using masood_lab.Models;
+﻿using masood_lab.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

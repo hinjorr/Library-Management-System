@@ -1,0 +1,90 @@
+﻿
+@{
+    ViewBag.Title = "AddBook";
+    Layout = "~/Views/master.cshtml";
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<form>
+    <div class="row " >
+        <h1>Add new book</h1>
+        <br />
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="body">
+                    
+                    <div class="row col-lg-4">
+                        <div class="form-line">
+                            <label for="classname">Book name</label>
+                            <input type="text" id="bookname" class="form-control">
+
+                        </div>
+                        <br />
+                        <div>
+                            <label >Book Department</label>
+                            <select id="bookdpt">
+                                <option value="0">Select</option>
+                                <option value="engineering">Engineering</option>
+                                <option value="cs">Computer Science</option>
+                            </select>
+
+                        </div>
+                        <br />
+                        <div class="form-line">
+                            <label >Book Type</label>
+                            <select id="booktype" >
+                                <option value="0">Select</option>
+                                <option value="RefrenceBook">Refrence Book</option>
+                                <option value="TextBook">TextBook</option>
+                            </select>
+                            <br />
+                        </div>
+                        <br />
+                        <button type="button" id="btnsubmit" class="btn btn-primary waves-effect">Submit</button>
+                        <button type="reset" id="btnreset" class="btn btn-warning waves-effect">Reset</button>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<!-- #END# Multi Column -->
+
+
+
+<script>
+    $(document).ready(function () {
+    alert("masood")
+        $('#btnsubmit').click(function(){
+
+            let BooksModel={
+                AbstractBookname: $('#bookname').val(),
+                Abstractbooktype: $('#bookdpt option:selected').val(),
+                Abstractdepartment: $('#booktype option:selected').val(),
+
+            }
+             $.ajax({
+                    type: 'Post',
+                 url: '/AbstractBooks/AddBook',
+                 data: BooksModel,
+                    success: function (resp) {
+                        if (resp == true) {
+                            alert("Submitted")
+                            $("#btnreset").click()
+                        }
+                        else {
+                            alert("failed")
+                        }
+                    },
+                });
+        })
+
+
+
+          
+
+
+    })
+</script>

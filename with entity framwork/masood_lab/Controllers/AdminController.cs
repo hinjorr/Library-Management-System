@@ -1,5 +1,5 @@
-﻿using masood_lab.DBmanager;
-using masood_lab.Models;
+﻿using masood_lab.Models;
+using masood_lab.Patterns;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,7 +14,7 @@ namespace masood_lab.Controllers
         // GET: Admin
 
         AdminModel Librarian = new AdminModel();
-        Admin_Manager obj = new Admin_Manager();
+        DBsingleton singleton = DBsingleton.getobject();
         public ActionResult Index()
         {
             return View();
@@ -22,7 +22,7 @@ namespace masood_lab.Controllers
         [HttpGet]
         public ActionResult AddAdmin()
         {
-            obj.getnextid(Librarian);
+            singleton.getnextid(Librarian);
             return View(Librarian);
         }
         [HttpPost]
@@ -35,7 +35,7 @@ namespace masood_lab.Controllers
                 {
                     ImageSaver(Librarian, ImageFile);
                     Admin.ImagePath = TempData["imgfile"].ToString();
-                    bool chk = obj.AddAdmin(Admin);
+                    bool chk = singleton.AddAdmin(Admin);
                     if (chk)
                     {
                         ViewBag.added = "Admin Registered!";
